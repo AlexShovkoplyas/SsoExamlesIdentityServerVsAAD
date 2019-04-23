@@ -20,18 +20,32 @@ namespace Api1
                 .AddJsonFormatters();
 
             services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
+                .AddIdentityServerAuthentication(options =>
+                //.AddJwtBearer("Bearer", options =>
                 {
-                    options.Authority = "http://localhost:5000";
-                    options.RequireHttpsMetadata = false;
+                    options.Authority = "https://localhost:5000";
+                    //options.RequireHttpsMetadata = false;
 
-                    options.Audience = "api1";
+                    options.ApiName = "api1";
                 });
+
+            services.AddCors(options =>
+            {
+                // this defines a CORS policy called "default"
+                options.AddPolicy("default", policy =>
+                {
+                    policy.WithOrigins("https://localhost:5004")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("default");
+
             app.UseAuthentication();
 
             app.UseMvc();

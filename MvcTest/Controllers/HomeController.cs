@@ -11,9 +11,9 @@ namespace MvcTest.Controllers
 {
     public class HomeController : Controller
     {
-        //[Authorize]
-        ////[Authorize(AuthenticationSchemes = "cookie1")]
-        [Authorize(AuthenticationSchemes = "cookie2")]
+        [Authorize]
+        //[Authorize(AuthenticationSchemes = "cookie1")]
+        //[Authorize(AuthenticationSchemes = "cookie2")]
         //[Authorize(AuthenticationSchemes = "cookie1, cookie2")]
         public IActionResult Index()
         {

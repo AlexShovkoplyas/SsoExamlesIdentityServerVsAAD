@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace MvcTest
 {
@@ -33,20 +32,30 @@ namespace MvcTest
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddAuthentication(options =>
+            
+            services.AddAuthentication(BasicAuthenticationDefaults.AuthenticationScheme)
+                .AddBasic<IBasicAuthenticationService>(o =>
                 {
-                    options.DefaultScheme = "cookie1";
-                })
-                .AddCookie("cookie1", "cookie1Name", options =>
-                {
-                    options.Cookie.Name = "cookie1Name";
-                    options.LoginPath = "/loginc1";
-                })
-                .AddCookie("cookie2", "cookie2Name", options =>
-                {
-                    options.Cookie.Name = "cookie2Name";
-                    options.LoginPath = "/loginc2";
+                    o.Realm = "My App";
                 });
+
+            services.AddSingleton<IPostConfigureOptions<BasicAuthenticationOptions>, BasicAuthenticationPostConfigureOptions>();
+
+
+            //services.AddAuthentication(options =>
+            //    {
+            //        options.DefaultScheme = "cookie1";
+            //    })
+            //    .AddCookie("cookie1", "cookie1Name", options =>
+            //    {
+            //        options.Cookie.Name = "cookie1Name";
+            //        options.LoginPath = "/loginc1";
+            //    })
+            //    .AddCookie("cookie2", "cookie2Name", options =>
+            //    {
+            //        options.Cookie.Name = "cookie2Name";
+            //        options.LoginPath = "/loginc2";
+            //    });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -69,34 +78,34 @@ namespace MvcTest
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.Use(next =>
-            {
-                return async ctx =>
-                {
-                    switch (ctx.Request.Path)
-                    {
-                        case "/loginc1":
-                            var identity1 = new ClaimsIdentity("cookie1");
-                            identity1.AddClaim(new Claim("name", "Alice-c1"));
-                            await ctx.SignInAsync("cookie1", new ClaimsPrincipal(identity1));
-                            break;
-                        case "/loginc2":
-                            var identity2 = new ClaimsIdentity("cookie2");
-                            identity2.AddClaim(new Claim("name", "Alice-c2"));
-                            await ctx.SignInAsync("cookie2", new ClaimsPrincipal(identity2));
-                            break;
-                        case "/logoutc1":
-                            await ctx.SignOutAsync("cookie1");
-                            break;
-                        case "/logoutc2":
-                            await ctx.SignOutAsync("cookie2");
-                            break;
-                        default:
-                            await next(ctx);
-                            break;
-                    }
-                };
-            });
+            //app.Use(next =>
+            //{
+            //    return async ctx =>
+            //    {
+            //        switch (ctx.Request.Path)
+            //        {
+            //            case "/loginc1":
+            //                var identity1 = new ClaimsIdentity("cookie1");
+            //                identity1.AddClaim(new Claim("name", "Alice-c1"));
+            //                await ctx.SignInAsync("cookie1", new ClaimsPrincipal(identity1));
+            //                break;
+            //            case "/loginc2":
+            //                var identity2 = new ClaimsIdentity("cookie2");
+            //                identity2.AddClaim(new Claim("name", "Alice-c2"));
+            //                await ctx.SignInAsync("cookie2", new ClaimsPrincipal(identity2));
+            //                break;
+            //            case "/logoutc1":
+            //                await ctx.SignOutAsync("cookie1");
+            //                break;
+            //            case "/logoutc2":
+            //                await ctx.SignOutAsync("cookie2");
+            //                break;
+            //            default:
+            //                await next(ctx);
+            //                break;
+            //        }
+            //    };
+            //});
 
             app.UseAuthentication();
 
@@ -108,4 +117,6 @@ namespace MvcTest
             });
         }
     }
+
+    
 }

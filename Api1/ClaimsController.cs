@@ -19,6 +19,14 @@ namespace Api1
         }
 
         [Authorize]
+        [Route("base")]
+        [HttpGet]
+        public string GetBase()
+        {
+            return "Hello from Api";
+        }
+
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {

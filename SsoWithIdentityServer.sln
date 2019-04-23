@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "ConsoleCli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcTest", "MvcTest\MvcTest.csproj", "{EE9AEFB8-F38C-4C47-AD59-FDBD32B7BD7B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvc2", "Mvc2\Mvc2.csproj", "{0B8401DB-0845-4D95-98A2-59C05FFC8117}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spa", "Spa\Spa.csproj", "{EFF60562-0104-47B3-8C0E-8167D55B039C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{EE9AEFB8-F38C-4C47-AD59-FDBD32B7BD7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE9AEFB8-F38C-4C47-AD59-FDBD32B7BD7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE9AEFB8-F38C-4C47-AD59-FDBD32B7BD7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B8401DB-0845-4D95-98A2-59C05FFC8117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B8401DB-0845-4D95-98A2-59C05FFC8117}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B8401DB-0845-4D95-98A2-59C05FFC8117}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B8401DB-0845-4D95-98A2-59C05FFC8117}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFF60562-0104-47B3-8C0E-8167D55B039C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFF60562-0104-47B3-8C0E-8167D55B039C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFF60562-0104-47B3-8C0E-8167D55B039C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFF60562-0104-47B3-8C0E-8167D55B039C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
